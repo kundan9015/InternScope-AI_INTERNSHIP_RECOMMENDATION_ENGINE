@@ -7,17 +7,26 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
+from pymongo.errors import ConfigurationError
 
 
 load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI")
+
+def _env(name: str, default: str | None = None) -> str | None:
+    value = os.getenv(name, default)
+    if value is None:
+        return None
+    return value.strip()
+
+
+MONGO_URI = _env("MONGO_URI")
 
 if not MONGO_URI:
-    mongo_username = os.getenv("MONGO_USERNAME")
-    mongo_password = os.getenv("MONGO_PASSWORD")
-    mongo_cluster = os.getenv("MONGO_CLUSTER", "cluster0.xxxxx.mongodb.net")
-    mongo_database = os.getenv("MONGO_DATABASE", "internship_db")
+    mongo_username = _env("MONGO_USERNAME")
+    mongo_password = _env("MONGO_PASSWORD")
+    mongo_cluster = _env("MONGO_CLUSTER", "cluster0.xxxxx.mongodb.net")
+    mongo_database = _env("MONGO_DATABASE", "internship_db")
 
     if mongo_username and mongo_password:
         encoded_username = quote_plus(mongo_username)
@@ -33,8 +42,14 @@ if not MONGO_URI:
     )
 
 
-client = MongoClient(MONGO_URI)
-db_name = os.getenv("MONGO_DATABASE", "internship_db")
+try:
+    client = MongoClient(MONGO_URI)
+except ConfigurationError as exc:
+    raise RuntimeError(
+        "Invalid MongoDB URI/cluster in environment variables. Check MONGO_URI or MONGO_CLUSTER and remove extra spaces."
+    ) from exc
+
+db_name = _env("MONGO_DATABASE", "internship_db") or "internship_db"
 db: Database = client[db_name]
 
 users_collection: Collection = db["users"]
