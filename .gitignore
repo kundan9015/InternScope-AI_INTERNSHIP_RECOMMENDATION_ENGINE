@@ -6,3 +6,4 @@ instance/*.db
 .env
 mongo_queries.md
 DEPLOY_CHECKLIST.md
+intervewi.md
