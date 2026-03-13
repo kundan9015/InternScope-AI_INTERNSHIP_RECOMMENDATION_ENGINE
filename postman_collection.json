@@ -1,0 +1,284 @@
+{
+  "info": {
+    "_postman_id": "f6f29c8a-6bf2-4625-8f2a-5c0f1a61ab51",
+    "name": "AI Internship Recommendation Engine API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Ready-to-run API collection for core and advanced AI features."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:5000"
+    },
+    {
+      "key": "analysisId",
+      "value": ""
+    },
+    {
+      "key": "internshipId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "Upload Resume",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "resume",
+              "type": "file",
+              "src": ""
+            },
+            {
+              "key": "location_preference",
+              "type": "text",
+              "value": "Remote"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/upload-resume",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "upload-resume"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Analysis",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/analysis/{{analysisId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "analysis",
+            "{{analysisId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Matched Recommendations",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/recommendations/matched/{{analysisId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "recommendations",
+            "matched",
+            "{{analysisId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Live Recommendations",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/recommendations/live/{{analysisId}}?q=machine+learning+intern",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "recommendations",
+            "live",
+            "{{analysisId}}"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "machine learning intern"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Personalized Feed",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/personalized-feed?analysis_id={{analysisId}}&interests=ai,ml,data",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "personalized-feed"
+          ],
+          "query": [
+            {
+              "key": "analysis_id",
+              "value": "{{analysisId}}"
+            },
+            {
+              "key": "interests",
+              "value": "ai,ml,data"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Predict Career",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"skills\": [\"Python\", \"Machine Learning\", \"TensorFlow\"],\n  \"projects\": [\"Mood Music Recommender\", \"Financial Prediction Dashboard\"],\n  \"education\": \"B.Tech CSE\",\n  \"experience\": \"ML Internship\",\n  \"experience_years\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/predict-career",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "predict-career"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Predict Success",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"internship\": \"Machine Learning Intern\",\n  \"user_skills\": [\"python\", \"machine learning\", \"pandas\"],\n  \"required_skills\": [\"python\", \"machine learning\", \"sql\"],\n  \"resume_score\": 82,\n  \"num_projects\": 3,\n  \"experience_years\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/predict-success",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "predict-success"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Resume Analysis",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"resume_text\": \"John Doe\\nSkills: Python, SQL, Flask\\nProjects\\nProject One\\nExperience\\nIntern\\n\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/resume-analysis",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "resume-analysis"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Log Activity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"analysis_id\": \"{{analysisId}}\",\n  \"internship_id\": \"{{internshipId}}\",\n  \"event\": \"viewed\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/activity",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activity"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Apply Redirect",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/apply/{{internshipId}}?analysis_id={{analysisId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "apply",
+            "{{internshipId}}"
+          ],
+          "query": [
+            {
+              "key": "analysis_id",
+              "value": "{{analysisId}}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

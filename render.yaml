@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: internscope-ai
+    runtime: python
+    plan: free
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.8
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: MONGO_DATABASE
+        value: internship_db
+      - key: MIN_LIVE_RESULTS
+        value: "10"
+      - key: LIVE_JOBS_API_URL
+        value: https://remotive.com/api/remote-jobs
+      - key: SECONDARY_LIVE_JOBS_API_URL
+        value: https://www.arbeitnow.com/api/job-board-api
+      - key: THIRD_LIVE_JOBS_API_URL
+        value: https://www.themuse.com/api/public/jobs

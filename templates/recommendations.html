@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Recommendations | InternScope AI{% endblock %}
+
+{% block content %}
+<section class="hero-card fade-in">
+    <div>
+        <p class="eyebrow">Recommendation Engine</p>
+        <h1>Top Ranked Internships For You</h1>
+        <p class="subtitle">Ranked by semantic fit, skill overlap, experience alignment, location preference, and fraud-risk adjustment.</p>
+        <div class="trust-row">
+            <span class="badge badge-safe">Live Data Pipeline</span>
+            <span class="badge badge-safe">Score Explainability</span>
+            <span class="badge badge-safe">Confidence Signals</span>
+        </div>
+    </div>
+</section>
+
+<section class="panel slide-up" style="--delay: 0.1s">
+    <div class="section-head">
+        <h2>Suggested Internships</h2>
+        <p id="recommendationMeta" class="status-text">Waiting for recommendation data...</p>
+    </div>
+    <div class="upload-form" style="margin-bottom: 14px;">
+        <label for="liveSearch">Live Search Query</label>
+        <input id="liveSearch" type="text" placeholder="e.g. ai intern, data science intern, nlp intern" />
+        <div class="inline-actions">
+            <button id="liveFetchBtn" type="button">Refresh Internships</button>
+            <button id="resetSearchBtn" type="button" class="ghost-btn">Reset</button>
+        </div>
+        <p id="liveStatus" class="status-text"></p>
+    </div>
+    <div id="recommendationState" class="empty-state is-hidden"></div>
+    <div id="recommendationList" class="cards-grid"></div>
+</section>
+
+<a id="mobileStickyCta" class="mobile-sticky-cta" href="#">Apply to Top Match</a>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/recommendations.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Matched Internships | InternScope AI{% endblock %}
+
+{% block content %}
+<section class="hero-card fade-in">
+    <div>
+        <p class="eyebrow">Resume Based Matching</p>
+        <h1>Internships Matched To Your Resume</h1>
+        <p class="subtitle">These internships are auto-suggested from your resume skills and profile. You can still do manual search below if needed.</p>
+        <div class="trust-row">
+            <span class="badge badge-safe">Profile Aligned</span>
+            <span class="badge badge-safe">Risk Guarded</span>
+            <span class="badge badge-safe">Live Search Ready</span>
+        </div>
+    </div>
+</section>
+
+<section class="panel slide-up" style="--delay: 0.1s">
+    <div class="section-head">
+        <h2>Matched Internships</h2>
+        <p id="matchedMeta" class="status-text">Preparing your live match feed...</p>
+    </div>
+    <p id="matchedStatus" class="status-text">Loading matched internships...</p>
+
+    <div class="upload-form" style="margin-bottom: 14px;">
+        <label for="manualSearch">Manual Search (optional)</label>
+        <input id="manualSearch" type="text" placeholder="Type only if you want custom search" />
+        <div class="inline-actions">
+            <button id="manualSearchBtn" type="button">Search Internships</button>
+            <button id="clearSearchBtn" type="button" class="ghost-btn">Clear Search</button>
+        </div>
+    </div>
+
+    <div id="matchedState" class="empty-state is-hidden"></div>
+    <div id="matchedList" class="cards-grid"></div>
+</section>
+
+<a id="mobileStickyMatchCta" class="mobile-sticky-cta" href="#">View Top Match</a>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/matched_internships.js') }}"></script>
+{% endblock %}

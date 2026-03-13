@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | InternScope AI{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="panel slide-up journey-rail" style="--delay: 0.03s">
+    <div class="journey-step active"><span>1</span>Upload Resume</div>
+    <div class="journey-step active"><span>2</span>AI Analysis</div>
+    <div class="journey-step active"><span>3</span>Matched Internships</div>
+    <div class="journey-step"><span>4</span>Improve Resume</div>
+</section>
+
+<section class="hero-card fade-in dashboard-hero">
+    <div>
+        <p class="eyebrow">Results First Dashboard</p>
+        <h1 id="dashboardHeadline">Your internship readiness report</h1>
+        <p class="subtitle">Instantly see your score, strongest career path, top internship match, and next actions.</p>
+        <p id="dashboardFreshness" class="status-text">Preparing live analytics...</p>
+    </div>
+    <a id="viewRecommendationsLink" class="apply-btn" href="{{ url_for('recommendations_page') }}">View Matched Internships</a>
+</section>
+
+<section class="panel slide-up" style="--delay: 0.045s">
+    <div class="ai-insights-header">
+        <div>
+            <h2>Advanced AI Insights</h2>
+            <p class="subtitle">Access all four AI modules from one place. Results are shown only when you click each feature.</p>
+        </div>
+        <button type="button" id="aiInsightsToggle" class="apply-btn ai-toggle-btn" aria-expanded="false" aria-controls="aiInsightsContent">Open AI Insights</button>
+    </div>
+
+    <div id="aiInsightsContent" class="is-hidden" aria-hidden="true">
+        <div class="ai-feature-controls" role="tablist" aria-label="Advanced AI Features">
+            <button type="button" class="ai-feature-btn" id="btnCareer" data-feature="career" data-panel="careerPanel">Career Path Prediction</button>
+            <button type="button" class="ai-feature-btn" id="btnSuccess" data-feature="success" data-panel="successPanel">Internship Success Predictor</button>
+            <button type="button" class="ai-feature-btn" id="btnFeed" data-feature="feed" data-panel="feedPanel">Personalized Feed Preview</button>
+            <button type="button" class="ai-feature-btn" id="btnResumeAnalyzer" data-feature="resume" data-panel="resumePanel">Resume Improvement Analyzer</button>
+        </div>
+
+        <p id="aiFeatureHint" class="status-text">Click any feature button to load and view results.</p>
+
+        <div class="grid-two">
+            <article id="careerPanel" class="panel inner-lite ai-feature-panel is-hidden" aria-hidden="true">
+                <h3>Career Path Prediction</h3>
+                <ul id="careerPathsList" class="feature-list"></ul>
+            </article>
+
+            <article id="successPanel" class="panel inner-lite ai-feature-panel is-hidden" aria-hidden="true">
+                <h3>Internship Success Predictor</h3>
+                <p id="successProbabilityText" class="status-text">Click the feature to run prediction.</p>
+                <p id="successContext" class="subtitle"></p>
+            </article>
+        </div>
+
+        <div class="grid-two">
+            <article id="feedPanel" class="panel inner-lite ai-feature-panel is-hidden" aria-hidden="true">
+                <h3>Personalized Feed Preview</h3>
+                <ul id="personalizedFeedList" class="feature-list"></ul>
+            </article>
+
+            <article id="resumePanel" class="panel inner-lite ai-feature-panel is-hidden" aria-hidden="true">
+                <h3>Resume Improvement Analyzer</h3>
+                <ul id="resumeWeakPoints" class="feature-list"></ul>
+                <p class="subtitle" style="margin-top:10px;">Suggestions</p>
+                <ul id="resumeSuggestions" class="feature-list"></ul>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-kpis">
+    <article class="panel stat-card slide-up" style="--delay: 0.05s">
+        <h3>Resume Score</h3>
+        <p class="score-value" id="resumeScore">--/100</p>
+    </article>
+    <article class="panel stat-card slide-up" style="--delay: 0.08s">
+        <h3>Candidate</h3>
+        <p id="candidateName">-</p>
+        <p class="muted-text" id="candidateEmail">-</p>
+    </article>
+    <article class="panel stat-card slide-up" style="--delay: 0.12s">
+        <h3>Profile Completion</h3>
+        <p class="score-value" id="profileCompletion">--%</p>
+    </article>
+    <article class="panel stat-card slide-up" style="--delay: 0.16s">
+        <h3>Top Career Path</h3>
+        <p id="topCareerPath">Calculating...</p>
+    </article>
+</section>
+
+<section class="grid-two">
+    <article class="panel slide-up" style="--delay: 0.2s">
+        <h2>Score Breakdown</h2>
+        <canvas id="scoreChart" height="210"></canvas>
+    </article>
+
+    <article class="panel slide-up" style="--delay: 0.24s">
+        <h2>Best Internship Match</h2>
+        <p id="topMatchRole" class="emphasis-line">Loading...</p>
+        <p id="topMatchCompany" class="muted-text">-</p>
+        <p id="topMatchScore" class="status-text">-</p>
+        <a id="topMatchApply" class="primary-link" target="_blank" rel="noopener">Apply to Top Match</a>
+    </article>
+</section>
+
+<section class="grid-two">
+    <article class="panel slide-up" style="--delay: 0.28s">
+        <h2>Extracted Skills</h2>
+        <div id="skillsWrap" class="chips"></div>
+        <h3 style="margin-top: 14px;">Skill Gaps</h3>
+        <div id="gapWrap" class="chips chips-danger"></div>
+    </article>
+
+    <article class="panel slide-up" style="--delay: 0.32s">
+        <h2>Immediate Actions</h2>
+        <ul id="suggestionsList" class="feature-list"></ul>
+    </article>
+</section>
+
+<section class="panel slide-up" style="--delay: 0.36s">
+    <h2>Profile Details</h2>
+    <div class="profile-grid">
+        <div><h4>Education</h4><p id="educationText"></p></div>
+        <div><h4>Projects</h4><p id="projectsText"></p></div>
+        <div><h4>Experience</h4><p id="experienceText"></p></div>
+        <div>
+            <h4>Professional Links</h4>
+            <div id="professionalLinks" class="profile-links"></div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

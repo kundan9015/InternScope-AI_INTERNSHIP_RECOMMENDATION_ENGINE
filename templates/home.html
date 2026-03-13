@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Resume | InternScope AI{% endblock %}
+
+{% block content %}
+<section class="hero-card fade-in">
+    <div>
+        <p class="eyebrow">AI Internship Assistant</p>
+        <h1>Launch your internship strategy with AI-ranked opportunities.</h1>
+        <p class="subtitle">Upload your resume once and get a complete intelligence layer: score diagnostics, skill-gap analysis, explainable matches, and action-ready recommendations.</p>
+        <div class="hero-actions">
+            <a href="#uploadForm" class="apply-btn">Start Resume Analysis</a>
+            <a href="{{ url_for('dashboard_page') }}" class="ghost-btn">Open Dashboard</a>
+        </div>
+        <div class="trust-row">
+            <span class="badge badge-safe">Live Roles</span>
+            <span class="badge badge-safe">Explainable Matching</span>
+            <span class="badge badge-safe">Risk Screened</span>
+        </div>
+    </div>
+</section>
+
+<section class="grid-two">
+    <article class="panel slide-up" style="--delay: 0.1s">
+        <h2>Resume Upload</h2>
+        <form id="uploadForm" class="upload-form">
+            <label for="resume" class="file-drop" id="dropZone">
+                <input type="file" id="resume" name="resume" accept="application/pdf" required />
+                <span id="fileLabel">Drop your PDF resume here or click to browse</span>
+            </label>
+
+            <label for="location_preference">Location Preference (optional)</label>
+            <input type="text" id="location_preference" name="location_preference" placeholder="e.g., Bangalore, Remote" />
+
+            <button type="submit" id="uploadBtn">Analyze Resume</button>
+        </form>
+        <p id="uploadStatus" class="status-text"></p>
+    </article>
+
+    <article class="panel slide-up" style="--delay: 0.2s">
+        <h2>What You Unlock</h2>
+        <p class="subtitle">Each step is optimized for fast decision-making, not just data display.</p>
+        <ul class="feature-list">
+            <li>Resume score out of 100 with detailed breakdown</li>
+            <li>Top internship recommendations with match score</li>
+            <li>Skill gap analysis for competitive AI/ML roles</li>
+            <li>Resume improvement suggestions</li>
+            <li>Basic fake internship risk detection</li>
+        </ul>
+    </article>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Internship Details | InternScope AI{% endblock %}
+
+{% block content %}
+<section class="hero-card fade-in">
+    <div>
+        <p class="eyebrow">Internship Profile</p>
+        <h1 id="roleTitle">Loading internship...</h1>
+        <p class="subtitle" id="companyInfo">Please wait while we fetch role details.</p>
+        <div id="detailsTrustMeta" class="trust-row"></div>
+    </div>
+</section>
+
+<section class="panel slide-up" style="--delay: 0.1s" data-internship-id="{{ internship_id }}" id="detailsPanel">
+    <div class="details-grid">
+        <div>
+            <h3>Role Description</h3>
+            <p id="descriptionText"></p>
+        </div>
+        <div>
+            <h3>Required Skills</h3>
+            <div id="requiredSkills" class="chips"></div>
+        </div>
+        <div>
+            <h3>Experience Level</h3>
+            <p id="experienceLevel"></p>
+        </div>
+        <div>
+            <h3>Location</h3>
+            <p id="locationText"></p>
+        </div>
+        <div>
+            <h3>Compensation</h3>
+            <p id="salaryText"></p>
+        </div>
+        <div>
+            <h3>Company Website</h3>
+            <p><a id="companySite" class="primary-link" target="_blank" rel="noopener">Visit Website</a></p>
+        </div>
+    </div>
+
+    <a id="applyLink" class="apply-btn" target="_blank" rel="noopener">Apply Now</a>
+    <div id="detailsState" class="empty-state is-hidden"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/details.js') }}"></script>
+{% endblock %}

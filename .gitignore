@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+uploads/*.pdf
+instance/*.db
+.env
+mongo_queries.md
+DEPLOY_CHECKLIST.md

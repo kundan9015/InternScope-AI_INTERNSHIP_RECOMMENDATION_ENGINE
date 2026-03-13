@@ -1,0 +1,6 @@
+company_name,role,required_skills,location,description,apply_link
+AI Startup,ML Intern,"python,machine learning,scikit-learn,pandas",Remote,Build ML models and evaluate predictions.,https://www.linkedin.com/jobs/search/?keywords=ML%20Intern
+Tech Labs,Data Scientist Intern,"python,sql,pandas,numpy",Bangalore,Work on analytics and forecasting for business data.,https://www.linkedin.com/jobs/search/?keywords=Data%20Scientist%20Intern
+CloudWare,Backend Developer Intern,"python,flask,sql,docker",Pune,Develop backend APIs and deployment pipelines.,https://www.linkedin.com/jobs/search/?keywords=Backend%20Developer%20Intern
+Vision AI,AI Engineer Intern,"python,pytorch,deep learning,computer vision",Remote,Assist in model training for vision use cases.,https://www.linkedin.com/jobs/search/?keywords=AI%20Engineer%20Intern
+Data Grid,Data Analyst Intern,"sql,power bi,excel,python",Hyderabad,Prepare reports and dashboard insights from data.,https://www.linkedin.com/jobs/search/?keywords=Data%20Analyst%20Intern
