@@ -1,5 +1,10 @@
 # InternScope: AI Internship Recommendation Engine
 
+## Live Demo
+
+- App: https://internscope-ai-internship-recommendation.onrender.com
+- Health Check: https://internscope-ai-internship-recommendation.onrender.com/healthz
+
 InternScope is an end-to-end Flask application that evaluates resumes and recommends high-fit internships using NLP, ranking logic, and live market data.
 
 It is designed as a practical AI product: upload a resume, get skill-gap insights, see ranked opportunities, and track recommendation quality through user interaction signals.
